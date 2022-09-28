@@ -1,0 +1,52 @@
+Input
+Store PRIME_CURRENT
+Subt One
+Skipcond 800
+Halt
+
+Input
+Store PRIME_UPPER_BOUND
+
+AGAIN, Load PRIME_UPPER_BOUND
+Subt PRIME_CURRENT
+Skipcond 000
+Jump PRIME_CONT
+Halt
+PRIME_CONT, Load One
+Store Y
+
+TEST_BY_DIV, Load PRIME_CURRENT
+Store X
+Load Y
+Add One
+Store Y
+Subt X
+Skipcond 000
+Jump IS_PRIME
+
+Load X
+DIV_LOOP, Subt Y
+Skipcond 000
+Jump DIV_LOOP
+Add Y
+Store X
+
+Skipcond 800
+Jump NEXT_PRIME
+Jump TEST_BY_DIV
+
+IS_PRIME, Load PRIME_CURRENT
+Output
+
+NEXT_PRIME, Load PRIME_CURRENT
+Add One
+Store PRIME_CURRENT
+Jump AGAIN
+
+
+X, DEC 0
+Y, DEC 0
+One, DEC 1
+PRIME_CURRENT, DEC 0
+PRIME_UPPER_BOUND, DEC 0
+

@@ -1,0 +1,27 @@
+.loginform {
+    display: grid;
+    justify-content: center;
+}
+
+.email {
+    margin-top: 1em;
+}
+
+.password {
+    margin-top: 1em;
+}
+
+.loginbutton {
+    margin-top: 1em;
+    width: 30vw;
+}
+
+.logincontainer {
+    display: grid;
+    justify-content: center;
+}
+
+#login-info {
+    text-align: center;
+    margin-top: 1em;
+}

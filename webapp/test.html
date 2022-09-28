@@ -1,0 +1,53 @@
+<head>
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link href="login.css" rel="stylesheet">
+    <link href="app.css" rel="stylesheet">
+    <meta charset="UTF-8">
+</head>
+<body>
+    <form class="loginform">
+        <div style="display: flex; height: 40vh; justify-content: center;">
+        <img src="truck.png">
+        </div>
+        <div style="display: flex; justify-content: center;">
+        <h1>Zarządzanie sklepem</h1>
+        </div>
+        <div class="logincontainer">
+        <label class="mdc-text-field mdc-text-field--filled email">
+            <span class="mdc-text-field__ripple"></span>
+            <input type="text" class="mdc-text-field__input" aria-labelledby="email-label" name="email">
+            <span class="mdc-floating-label" id="email-label">E-mail</span>
+            <span class="mdc-line-ripple"></span>
+        </label>
+        <label class="mdc-text-field mdc-text-field--filled password">
+            <span class="mdc-text-field__ripple"></span>
+            <input type="password" class="mdc-text-field__input" aria-labelledby="password-label" name="password">
+            <span class="mdc-floating-label" id="password-label">Hasło</span>
+            <span class="mdc-line-ripple"></span>
+        </label>
+        <button id="loginbutton" type="button" class="mdc-button mdc-button--raised loginbutton">
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">
+            Zaloguj
+            </span>
+        </button>
+        <button id="presetbutton" type="button" class="mdc-button presetbutton">
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">
+            Resetuj hasło
+            </span>
+        </button>
+        <div id="login-info">
+        </div>
+        </div>
+    </form>
+    <script>
+        const MDCTextField = mdc.textField.MDCTextField
+        emailfield = new MDCTextField(document.querySelector('.email'))
+        passwordfield = new MDCTextField(document.querySelector(".password"))
+    </script>
+      
+
+    <script type="module" src="./login.js"></script>
+</body>

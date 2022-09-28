@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% block beforelist %}{% endblock %}
+<ul>
+{% for seller in sellers %}
+ <li style="padding-bottom: 1em;">
+ <a href="{{ url_for('shop.shoppage', id=seller[1]) }}">
+ {{ seller[0] }}
+ </a>
+ </li>
+{% endfor %}
+</ul>
+{% endblock %}
+

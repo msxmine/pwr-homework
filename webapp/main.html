@@ -1,0 +1,336 @@
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="http://google.github.io/palette.js/palette.js"></script>
+    <link href="main.css" rel="stylesheet">
+    <link href="app.css" rel="stylesheet">
+    <meta charset="UTF-8">
+</head>
+<body>
+
+  <aside class="mdc-drawer">
+    <div class="mdc-drawer__header">
+      <h3 class="mdc-drawer__title">Zarządzanie sklepem</h3>
+      <h6 class="mdc-drawer__subtitle">Aplikacja internetowa</h6>
+    </div>
+    <div class="mdc-drawer__content">
+      <nav class="mdc-deprecated-list">
+        <a id="productslink" class="mdc-deprecated-list-item" href="#" aria-current="page">
+          <span class="mdc-deprecated-list-item__ripple"></span>
+          <i class="material-icons mdc-deprecated-list-item__graphic" aria-hidden="true">inventory</i>
+          <span class="mdc-deprecated-list-item__text">Produkty</span>
+        </a>
+        <a id="statslink" class="mdc-deprecated-list-item" href="#">
+          <span class="mdc-deprecated-list-item__ripple"></span>
+          <i class="material-icons mdc-deprecated-list-item__graphic" aria-hidden="true">analytics</i>
+          <span class="mdc-deprecated-list-item__text">Sprzedaż</span>
+        </a>
+        <a id="workerslink" class="mdc-deprecated-list-item" href="#">
+          <span class="mdc-deprecated-list-item__ripple"></span>
+          <i class="material-icons mdc-deprecated-list-item__graphic" aria-hidden="true">manage_accounts</i>
+          <span class="mdc-deprecated-list-item__text">Pracownicy</span>
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+<div class="mdc-drawer-app-content">
+    <header class="mdc-top-app-bar app-bar mdc-top-app-bar--fixed">
+        <div class="mdc-top-app-bar__row">
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                <span id="pagetitle" class="mdc-top-app-bar__title">Produkty</span>
+            </section>
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+              <div id="bar-dropdown-shopid" class="mdc-select mdc-select--outlined">
+                <div class="mdc-select__anchor"
+                     role="button"
+                     aria-haspopup="listbox"
+                     aria-expanded="false"
+                     aria-labelledby="shopid-label shopid-selected-text">
+                  <span class="mdc-notched-outline">
+                  <span class="mdc-notched-outline__leading"></span>
+                  <span class="mdc-notched-outline__notch">
+                  <span id="shopid-label" class="mdc-floating-label">Sklep</span>
+                  </span>
+                  <span class="mdc-notched-outline__trailing"></span>
+                  </span>
+                  <span class="mdc-select__selected-text-container">
+                    <span id="shopid-selected-text" class="mdc-select__selected-text"></span>
+                  </span>
+                  <span class="mdc-select__dropdown-icon">
+                    <svg
+                        class="mdc-select__dropdown-icon-graphic"
+                        viewBox="7 10 10 5" focusable="false">
+                      <polygon
+                          class="mdc-select__dropdown-icon-inactive"
+                          stroke="none"
+                          fill-rule="evenodd"
+                          points="7 10 12 15 17 10">
+                      </polygon>
+                      <polygon
+                          class="mdc-select__dropdown-icon-active"
+                          stroke="none"
+                          fill-rule="evenodd"
+                          points="7 15 12 10 17 15">
+                      </polygon>
+                    </svg>
+                  </span>
+                  <span class="mdc-line-ripple"></span>
+                </div>
+              
+                <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+                  <ul id="shop-option-list" class="mdc-deprecated-list" role="listbox" aria-label="Category picker listbox">
+                  </ul>
+                </div>
+              </div>
+                <button id="logoutbutton" class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Logout">logout</button>
+            </section>
+        </div>
+    </header>
+
+
+<main class="main-content mdc-top-app-bar--fixed-adjust" id="main-content">
+    
+<div id="productscontent" class="contentpanel">
+    <ul id="productlist" class="mdc-list mdc-list--two-line ">
+        <!--<li class="mdc-list-item">
+            <span class="mdc-list-item__ripple"></span>
+            <span class="mdc-list-item__text">
+                <span class="mdc-list-item__primary-text">Hello</span>
+                <span class="mdc-list-item__secondary-text">world</span>
+            </span>
+        </li>-->
+    </ul>
+    <div class="fabcontainer">
+      <button id="addproductbutton" class="mdc-fab" aria-label="Add">
+          <div class="mdc-fab__ripple"></div>
+          <span class="mdc-fab__icon material-icons">add</span>
+      </button>
+      </div>
+    </div>
+
+    <div id="statscontent" class="contentpanel" style="display: none;">
+      <div style="display: flex; gap: 2vw;">
+        <div class="mdc-card">
+            <canvas id="profitsWeek" style="width: 35vw; height: 60vh;"></canvas>
+        </div>
+        <div class="mdc-card">
+            <canvas id="categoriesDay" style="width: 35vw; height: 60vh;"></canvas>
+        </div>
+        </div>
+    </div>
+
+
+    <div id="workerscontent" class="contentpanel flexpanel" style="display: none;">
+      <ul id="workerslist" style="flex: 1 1 100%" class="mdc-deprecated-list mdc-deprecated-list--two-line">
+
+      </ul>
+      <div style="flex: 0 0 10%">
+        <div style="display: flex; align-items: center; justify-content: center;">
+        <label id="workernameentry" class="mdc-text-field mdc-text-field--filled">
+          <span class="mdc-text-field__ripple"></span>
+          <span class="mdc-floating-label" id="my-label-id">Nazwa</span>
+          <input class="mdc-text-field__input" type="text" aria-labelledby="my-label-id">
+          <span class="mdc-line-ripple"></span>
+        </label>
+        <label id="workeremailentry" class="mdc-text-field mdc-text-field--filled">
+          <span class="mdc-text-field__ripple"></span>
+          <span class="mdc-floating-label" id="my-label-id">E-mail</span>
+          <input class="mdc-text-field__input" type="text" aria-labelledby="my-label-id">
+          <span class="mdc-line-ripple"></span>
+        </label>
+        <label id="workerpasswordentry" class="mdc-text-field mdc-text-field--filled">
+          <span class="mdc-text-field__ripple"></span>
+          <span class="mdc-floating-label" id="my-label-id">Hasło</span>
+          <input pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" class="mdc-text-field__input" type="text" aria-labelledby="my-label-id">
+          <span class="mdc-line-ripple"></span>
+        </label>
+        <button id="workeraddbutton" class="mdc-button">
+          <span class="mdc-button__ripple"></span>
+          <span class="mdc-button__label">dodaj</span>
+        </button>
+        </div>
+      </div>
+    </div>
+  </main>
+    </div>
+
+    <div id="producteditdialog" class="mdc-dialog mdc-dialog--fullscreen">
+        <div class="mdc-dialog__container">
+          <div class="mdc-dialog__surface"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="my-dialog-title"
+            aria-describedby="my-dialog-content">
+            <div class="mdc-dialog__header">
+              <h2 class="mdc-dialog__title" id="my-dialog-title">
+                Dane produktu
+              </h2>
+              <button class="mdc-icon-button material-icons mdc-dialog__close"
+                      data-mdc-dialog-action="close">
+                close
+              </button>
+            </div>
+            <div class="mdc-dialog__content" id="my-dialog-content">
+                <div>
+                    <div>
+                        <label id="dialog-input-barcode" class="mdc-text-field mdc-text-field--filled">
+                        <span class="mdc-text-field__ripple"></span>
+                        <span class="mdc-floating-label" id="barcode-label-id">Kod kreskowy</span>
+                        <input minlength="13" maxlength="13" class="mdc-text-field__input" type="number" aria-labelledby="barcode-label-id" required>
+                        <span class="mdc-line-ripple"></span>
+                        </label>
+                    </div>
+                    <div>
+                        <label id="dialog-input-name" class="mdc-text-field mdc-text-field--filled">
+                        <span class="mdc-text-field__ripple"></span>
+                        <span class="mdc-floating-label" id="name-label-id">Nazwa</span>
+                        <input class="mdc-text-field__input" type="text" aria-labelledby="name-label-id">
+                        <span class="mdc-line-ripple"></span>
+                        </label>
+                    </div>
+                    <div id="dialog-dropdown-category" class="mdc-select mdc-select--filled">
+                      <div class="mdc-select__anchor"
+                           role="button"
+                           aria-haspopup="listbox"
+                           aria-expanded="false"
+                           aria-labelledby="category-label category-selected-text">
+                        <span class="mdc-select__ripple"></span>
+                        <span id="category-label" class="mdc-floating-label">Kategoria</span>
+                        <span class="mdc-select__selected-text-container">
+                          <span id="category-selected-text" class="mdc-select__selected-text"></span>
+                        </span>
+                        <span class="mdc-select__dropdown-icon">
+                          <svg
+                              class="mdc-select__dropdown-icon-graphic"
+                              viewBox="7 10 10 5" focusable="false">
+                            <polygon
+                                class="mdc-select__dropdown-icon-inactive"
+                                stroke="none"
+                                fill-rule="evenodd"
+                                points="7 10 12 15 17 10">
+                            </polygon>
+                            <polygon
+                                class="mdc-select__dropdown-icon-active"
+                                stroke="none"
+                                fill-rule="evenodd"
+                                points="7 15 12 10 17 15">
+                            </polygon>
+                          </svg>
+                        </span>
+                        <span class="mdc-line-ripple"></span>
+                      </div>
+                    
+                      <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+                        <ul id="category-option-list" class="mdc-deprecated-list" role="listbox" aria-label="Category picker listbox">
+                          <li class="mdc-deprecated-list-item mdc-deprecated-list-item--selected" aria-selected="true" data-value="" role="option">
+                            <span class="mdc-deprecated-list-item__ripple"></span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div>
+                        <label id="dialog-input-shelf" class="mdc-text-field mdc-text-field--filled">
+                        <span class="mdc-text-field__ripple"></span>
+                        <span class="mdc-floating-label" id="storeamm-label-id">Szt. w sklepie</span>
+                        <input class="mdc-text-field__input" type="number" aria-labelledby="storeamm-label-id">
+                        <span class="mdc-line-ripple"></span>
+                        </label>
+                        <label id="dialog-input-warehouse" class="mdc-text-field mdc-text-field--filled">
+                        <span class="mdc-text-field__ripple"></span>
+                        <span class="mdc-floating-label" id="whamm-label-id">Szt. w magazynie</span>
+                        <input class="mdc-text-field__input" type="number" aria-labelledby="whamm-label-id">
+                        <span class="mdc-line-ripple"></span>
+                        </label>
+                    </div>
+                    <div>
+                        Data ważności:
+                        <input id="dialog-input-expiry" type="date" name="expiry">
+                    </div>
+                    <div>
+                        <label id="dialog-input-price" class="mdc-text-field mdc-text-field--filled">
+                        <span class="mdc-text-field__ripple"></span>
+                        <span class="mdc-floating-label" id="price-label-id">Cena</span>
+                        <input class="mdc-text-field__input" type="number" step="0.01" aria-labelledby="price-label-id">
+                        <span class="mdc-line-ripple"></span>
+                        </label>
+                        <label id="dialog-input-saleprice" class="mdc-text-field mdc-text-field--filled">
+                        <span class="mdc-text-field__ripple"></span>
+                        <span class="mdc-floating-label" id="salep-label-id">Cena podczas przeceny</span>
+                        <input class="mdc-text-field__input" type="number" step="0.01" aria-labelledby="salep-label-id">
+                        <span class="mdc-line-ripple"></span>
+                        </label>
+                    </div>
+                    <div class="mdc-form-field">
+                        <div id="dialog-checkbox-sale" class="mdc-checkbox">
+                          <input type="checkbox"
+                                 class="mdc-checkbox__native-control"
+                                 id="dialog-checkbox-sale-form"/>
+                          <div class="mdc-checkbox__background">
+                            <svg class="mdc-checkbox__checkmark"
+                                 viewBox="0 0 24 24">
+                              <path class="mdc-checkbox__checkmark-path"
+                                    fill="none"
+                                    d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                            </svg>
+                            <div class="mdc-checkbox__mixedmark"></div>
+                          </div>
+                          <div class="mdc-checkbox__ripple"></div>
+                        </div>
+                        <label for="dialog-checkbox-sale-form">Na przecenie</label>
+                      </div>
+                </div>
+            </div>
+            <div class="mdc-dialog__actions">
+                <button id="productdeletionbutton" type="button" class="mdc-button mdc-dialog__button"
+                data-mdc-dialog-action="delete">
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label">USUŃ</span>
+                </button>
+              <button type="button" class="mdc-button mdc-dialog__button"
+                      data-mdc-dialog-action="ok">
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label">OK</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="mdc-dialog__scrim"></div>
+    </div>
+
+    <div id="deleteconfirmdialog" class="mdc-dialog">
+        <div class="mdc-dialog__container">
+          <div class="mdc-dialog__surface"
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="delete-dialog-title"
+            aria-describedby="delete-dialog-content">
+            <div class="mdc-dialog__content" id="delete-dialog-content">
+              Usunąć produkt?
+            </div>
+            <div class="mdc-dialog__actions">
+              <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label">Anuluj</span>
+              </button>
+              <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="discard">
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label">Usuń</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="mdc-dialog__scrim"></div>
+    </div>
+
+
+    <script>
+        const MDCTopAppBar = mdc.topAppBar.MDCTopAppBar
+        
+        const topAppBarElement = document.querySelector(".mdc-top-app-bar");
+        const topAppBar = new MDCTopAppBar(topAppBarElement);
+    </script>
+    <script type="module" src="./main.js"></script>
+</body>

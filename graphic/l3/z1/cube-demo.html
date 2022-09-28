@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html id="htmlId">
+  <body>
+    <canvas id="canvasGL"></canvas>
+    <!-- Napisy pokazujące stan selektora tekstur/filtrow-->
+    <h1 style="position: absolute;left: 100px;top: 10px;">A/D - wybierz teksture, W/S - powiekszenie, Q/E - pomniejszenie/mipmapa</h1>
+    <h3 id="texind" style="position: absolute;left: 100px;top: 100px;"></h3>
+    <h3 id="downind" style="position: absolute;left: 100px;top: 150px;"></h3>
+    <h3 id="upind" style="position: absolute;left: 100px;top: 200px;"></h3>
+    <canvas id="canvasTex" width="512" height="512" style="display: none;"></canvas>
+    <script src="texture-loader.js"></script>
+    <script src="skybox_utils.js"></script>
+    <script src="cube-demo.js"></script>
+  </body>
+</html>

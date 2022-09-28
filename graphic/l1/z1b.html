@@ -1,0 +1,47 @@
+<!-- Wykonywanie podanych poleceń grafiki żółwia -->
+<body style="display: grid">
+    <canvas id="surface" width="1600" height="900"></canvas>
+    <script src="./z1.js"></script>
+    <input id="polecenie" type="text">
+    <br>fw 0.5 - przesuń o 0.5 do przodu
+    <br>bw 0.5 - przesuń o 0.5 do tyłu
+    <br>rt 90 - obróć o 90 stopni w prawo
+    <br>lt 90 - obróć o 90 stopni w lewo
+    <br>pu - podnieś pisak
+    <br>pd - opuść pisak
+    <br>cs - wyczyść ekran
+    <br>sc #00FF00 - ustaw kolor na zielony
+    <br>gt 0 0 - przesuń się do (0,0)
+    <br>sr 0 - ustaw kąt nachylenia na 0
+    <script>
+    translator = {}
+    translator["fw"] = forward
+    translator["bw"] = backward
+    translator["rt"] = right
+    translator["lt"] = left
+    translator["pu"] = penup
+    translator["pd"] = pendown
+    translator["cs"] = clear
+    translator["sc"] = setcolor
+    translator["gt"] = goto
+    translator["sr"] = setrot
+    //Translate and execute
+    function tandex(){
+        var tfield = document.getElementById("polecenie")
+        var intext = tfield.value
+        tfield.value = ""
+        var inspl = intext.split(" ")
+        translator[inspl[0]].apply(null, inspl.slice(1))
+        
+        
+    }
+    
+    document.getElementById("polecenie").addEventListener("keyup", function(event) {
+        //enter aby zakończyć polecenie
+        if (event.keyCode == 13){
+            event.preventDefault()
+            tandex()
+        }
+    })
+    </script>
+</body>

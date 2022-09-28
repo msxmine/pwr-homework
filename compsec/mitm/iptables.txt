@@ -1,0 +1,8 @@
+sudo iptables -A INPUT -i sztbr -p tcp --dport 8080 -j ACCEPT
+sudo iptables -A INPUT -i sztbr -p tcp --dport 4430 -j ACCEPT
+sudo iptables -A INPUT -i sztbr -p udp --dport 5399 -j ACCEPT
+sudo iptables -A INPUT -i sztbr -p tcp --dport 5399 -j ACCEPT
+sudo iptables -t nat -A PREROUTING -i sztbr -s 10.69.69.0/24 -d 10.69.69.1 -p tcp --dport 80 -j REDIRECT --to-ports 8080
+sudo iptables -t nat -A PREROUTING -i sztbr -s 10.69.69.0/24 -d 10.69.69.1 -p tcp --dport 443 -j REDIRECT --to-ports 4430
+sudo iptables -t nat -A PREROUTING -i sztbr -s 10.69.69.0/24 -p udp --dport 53 -j DNAT --to-destination 10.69.69.1:5399
+sudo iptables -t nat -A PREROUTING -i sztbr -s 10.69.69.0/24 -p tcp --dport 53 -j DNAT --to-destination 10.69.69.1:5399

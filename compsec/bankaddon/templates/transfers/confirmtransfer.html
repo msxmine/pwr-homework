@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirm transfer{% endblock %}
+
+{% block content %}
+
+<div class="transferdetails">
+    <p>To: {{ transfer[0] }}</p>
+    <p>Acc: {{ transfer[1] }}</p>
+    <p>Ammount: {{ transfer[2] }}</p>
+</div>
+
+<form method="post">
+    <a href="{{ url_for('transfers.transferspage') }}">Cancel</a>
+    <input type="submit" value="Confirm">
+</form>
+
+{% endblock %}

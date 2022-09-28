@@ -1,0 +1,2 @@
+nasm -fbin ./index.asm
+nasm -fbin ./shellexec.asm

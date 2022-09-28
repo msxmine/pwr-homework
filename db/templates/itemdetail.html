@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Item
+{% endblock %}
+
+{% block content %}
+{% if g.user %}
+{% if g.user['id'] == item[7] or g.user['type'] == 2 %}
+<a href="{{ url_for('shop.itemdelpage', id=item[0]) }}">Delete</a>
+{% endif %}
+
+<form method="post">
+ <input type="number" id="qty" name="qty" min=1>
+ <input type="submit" value="Add to cart">
+</form>
+
+{% endif %}
+
+
+<h2> {{ item[2] }} </h2>
+
+<h3> By: {{ item[1] }} </h3>
+
+Price: {{ item[4] }} <br>
+In Stock: {{ item[5] }} <br>
+Sold: {{ item[6] }} <br>
+
+<p> {{ item[3] }} </p>
+
+{% endblock %}

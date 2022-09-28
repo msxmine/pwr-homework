@@ -1,0 +1,76 @@
+<!-- Fraktale -->
+<body style="display: grid">
+    <canvas id="surface" width="1600" height="900"></canvas>
+    <script src="./z1.js"></script>
+    <label for="stopien">Stopień</label>
+    <input style="width: 10%" id="stopien" type="number" step="1" min="0" value="7">
+    <input style="width: 10%" id="gobtn" type="button" value="Uruchom">
+    <script>
+    function sierpinski(siz, recurs){
+        if (recurs == 0){
+            for (i = 0; i < 3; i++){
+                forward(siz)
+                left(120)
+            }
+        }
+        else{
+            sierpinski(siz/2, recurs-1)
+            forward(siz/2)
+            sierpinski(siz/2, recurs-1)
+            left(120)
+            forward(siz/2)
+            right(120)
+            sierpinski(siz/2, recurs-1)
+            right(120)
+            forward(siz/2)
+            left(120)
+        }
+    }
+    
+    function koch(siz, recurs){
+        if (recurs == 0){
+            forward(siz)
+        }
+        else{
+            koch(siz/3, recurs-1)
+            left(60)
+            koch(siz/3, recurs-1)
+            right(120)
+            koch(siz/3, recurs-1)
+            left(60)
+            koch(siz/3, recurs-1)
+        }
+    }
+    
+    function kochflake(siz, recurs){
+        for (i = 0; i < 3; i++){
+            koch(siz, recurs)
+            right(120)
+        }
+    }
+    
+    stval = document.getElementById("stopien")
+    
+    function draw(){
+        var iter = stval.value
+        clear()
+        penup()
+        goto(-1, 0)
+        setrot(90)
+        pendown()
+        sierpinski(0.8, iter)
+        penup()
+
+        goto(0,0)
+        setrot(30)
+        pendown()
+        kochflake(0.8, iter)
+    }
+    
+    
+    
+
+    document.getElementById("gobtn").onclick = draw
+    
+    </script>
+</body>

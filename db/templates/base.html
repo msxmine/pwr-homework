@@ -1,0 +1,41 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - FakeShop</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<div class='site'>
+<div class="topbar">
+<div class="logo">
+<a href="{{ url_for('mainpage') }}">FakeShop</a>
+</div>
+<div class="user">
+{% if g.user %}
+<a href="{{ url_for('auth.usermanagementpage') }}">{{ g.user['username'] }}</a>
+<a href="{{ url_for('auth.logoutpage') }}">(Log out)</a>
+{% else %}
+<a href="{{ url_for('auth.registerpage') }}">Register</a>
+<a href="{{ url_for('auth.loginpage') }}">Log in</a>
+{% endif %}
+</div>
+</div>
+<div class="navbar">
+<ul>
+<li><a href="{{ url_for('mainpage') }}">Popular</a></li>
+<li><a href="{{ url_for('shop.sellerspage') }}">Sellers</a></li>
+{% if g.user %}
+<li><a href="{{ url_for('shop.cartpage') }}">Cart</a></li>
+{% if g.user['type'] >= 1 %}
+<li><a href="{{ url_for('shop.shoppage', id=g.user['id']) }}">My Offers</a></li>
+{% endif %}
+{% if g.user['type'] >= 2 %}
+<li><a href="{{ url_for('admin.adminpage', id=g.user['id']) }}">Admin</a></li>
+{% endif %}
+{% endif %}
+</ul>
+</div>
+<div class="content">
+{% for message in get_flashed_messages() %}
+ <div class="flash">{{ message }}</div>
+{% endfor %}
+{% block content %}{% endblock %}
+</div>
+</div>
+

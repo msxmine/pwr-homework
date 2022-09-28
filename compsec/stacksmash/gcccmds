@@ -1,0 +1,8 @@
+gcc -m32 -fno-stack-protector -z execstack z2.c -o ./z2
+#Dziala gdy shellcode jest deklarowany wewnatrz main (na stosie)
+gcc -m32 -fno-stack-protector -z noseparate-code z2.c -o ./z2
+#Dziala gdy shellcode jest static i trafia na .rodata, ktore jest laczone z .text
+gcc -m32 -fno-stack-protector z2.c -o ./z2
+./gnustackstrip ./z2
+#Dziala w wersji oryginalnej nawet po zmianach w linux 5.8
+#Gnustackstrip powoduje ustawienie stosu, .data i .dataro jako eXexcute

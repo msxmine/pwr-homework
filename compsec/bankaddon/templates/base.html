@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<title>{% block title %}{% endblock %} - SuperBank</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<div class='site'>
+    <div class="topbar">
+        <div class="logo">
+            <a href="{{ url_for('mainpage') }}">SuperBank</a>
+        </div>
+        <div class="user">
+            {% if g.user %}
+                <a>{{ g.user['username'] }}</a>
+                <a href="{{ url_for('auth.logoutpage') }}">(Log out)</a>
+            {% else %}
+                <a href="{{ url_for('auth.registerpage') }}">Register</a>
+                <a href="{{ url_for('auth.loginpage') }}">Log in</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="navbar">
+        <ul>
+            <li><a href="{{ url_for('mainpage') }}">Home page</a></li>
+            {% if g.user %}
+            <li><a href="{{ url_for('transfers.transferspage') }}">Transfers</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="content">
+        {% for message in get_flashed_messages() %}
+            <div class="flash">{{ message }}</div>
+        {% endfor %}
+        {% block content %}{% endblock %}
+    </div>
+</div>

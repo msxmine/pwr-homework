@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+New listing
+{% endblock %}
+
+{% block content %}
+
+<form method="post">
+ <label for="name">Name</label>
+ <input name="name" id="name" required>
+ <label for="desc">Description</label>
+ <input name="desc" id="desc" required>
+ <label for="price">Price</label>
+ <input type="number" id="price" name="price" step="0.01" min=0>
+ <label for="query">Units available</label>
+ <input type="number" id="qty" name="qty" min=1>
+ <input type="submit" value="Add listing">
+</form>
+{% endblock %}

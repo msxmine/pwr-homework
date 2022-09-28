@@ -1,0 +1,95 @@
+Input
+Store ORIG_X
+Store X
+Skipcond 000
+Jump X_NOT_NEGATIVE
+Clear
+Subt ORIG_X
+Store X
+X_NOT_NEGATIVE, Clear
+
+Input
+Store ORIG_Y
+Store Y
+Skipcond 400
+Jump Y_GOOD
+Halt
+Y_GOOD, Load Y
+Skipcond 000
+Jump Y_NOT_NEGATIVE
+Clear
+Subt Y
+Store Y
+Y_NOT_NEGATIVE, Clear
+
+Clear
+Store DIV_RESULT
+
+DIV_LOOP, Load DIV_RESULT
+Add One
+Store DIV_RESULT
+Load X
+Subt Y
+Store X
+Skipcond 000
+Jump DIV_LOOP
+
+
+DIV_END, Clear
+Load X
+Add Y
+Store X
+
+Load ORIG_X
+Skipcond 000
+Jump VAL_FIXUP
+Load X
+Skipcond 800
+Jump VAL_FIXUP
+Load Y
+Subt X
+Store X
+Jump VAL_OK
+VAL_FIXUP, Load DIV_RESULT
+Subt One
+Store DIV_RESULT
+
+VAL_OK, Clear
+Subt One
+Store TEMPREG
+Load ORIG_X
+Skipcond 000
+Jump YCHECK
+Load TEMPREG
+Add One
+Store TEMPREG
+YCHECK, Load ORIG_Y
+Skipcond 000
+Jump RESULT_FINAL
+Load TEMPREG
+Add One
+Store TEMPREG
+RESULT_FINAL, Load TEMPREG
+Skipcond 400
+Jump RESULT_OK
+Clear
+Subt DIV_RESULT
+Store DIV_RESULT
+RESULT_OK, Clear
+
+
+
+Load DIV_RESULT
+Output
+Load X
+Output
+Halt
+
+TEMPREG, DEC 0
+ORIG_X, DEC 0
+ORIG_Y, DEC 0
+X, DEC 0
+Y, DEC 0
+DIV_RESULT, DEC 0
+One, DEC 1
+

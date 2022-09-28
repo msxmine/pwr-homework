@@ -1,0 +1,19 @@
+<!-- Obracanie poprzez przeciąganie myszką -->
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- Program -->
+<script type="text/javascript" src="z2logic.js" defer></script>
+<script type="text/javascript" src="z2render.js" defer></script>
+</head>
+<body>
+<!-- Powierzchnia do rysowania -->
+<canvas id="your_canvas" width="320" height="180"></canvas>
+<!-- Elementy do specyfikowania przez uzytkownika f(x,y) -->
+<div style="position: absolute; bottom: 100px; left: 10%; width: 80%">
+<label for="function">f(x,y) = </label>
+<input id="function" type="text" style="width: 80%" value="Math.sin(x) * Math.sin(y)">
+<input type="button" id="draw" value="Rysuj">
+</div>
+</body>
+</html>

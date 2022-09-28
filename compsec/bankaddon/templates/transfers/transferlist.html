@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Transfers{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('transfers.newtransfer') }}">New transfer</a>
+<ul>
+    {% for transfer in transferlist %}
+        <li style="padding-bottom: 1em;">
+            <a href="{{ url_for('transfers.transferdetails', id=transfer[0]) }}">
+                {{ transfer[2] }} <br>
+                To: {{ transfer[1] }} <br>
+                On: {{ transfer[3] }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

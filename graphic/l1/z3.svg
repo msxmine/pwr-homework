@@ -1,0 +1,85 @@
+<!-- Fraktale w postaci svg z wbudowanym javascript -->
+<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+    <text id="statdis" x="20" y="20">S=7</text>
+    <!-- Naciśnij + albo - aby zmienić stopień -->
+    <text id="plusbtn" x="100" y="20">+</text>
+    <text id="minbtn" x="80" y="20">-</text>
+    <g fill="white" stroke="black" stroke-width="0.1">
+    </g>
+ <script>
+    // <![CDATA[
+    contain = document.getElementsByTagName("g")[0]
+    
+    function line(x1,y1,x2,y2){
+        l = document.createElementNS("http://www.w3.org/2000/svg", "line")
+        l.setAttribute("x1", x1)
+        l.setAttribute("y1", y1)
+        l.setAttribute("x2", x2)
+        l.setAttribute("y2", y2)
+        //l.setAttribute("style", "stroke:rgb(0,0,0);stroke-width:0.1")
+        contain.appendChild(l)
+    }
+    
+    function sierpinski(siz, recurs, startx, starty){
+        if (recurs == 0){
+            line(startx, starty, startx+siz, starty)
+            line(startx, starty, startx+(siz/2), starty-((siz/2)*Math.sqrt(3)))
+            line(startx+(siz/2), starty-((siz/2)*Math.sqrt(3)), startx+siz, starty)
+        }
+        else{
+            sierpinski(siz/2, recurs-1, startx, starty)
+            sierpinski(siz/2, recurs-1, startx+(siz/2), starty)
+            sierpinski(siz/2, recurs-1, startx+(siz/4), starty-((siz/4)*Math.sqrt(3)))
+        }
+    }
+    
+    function koch(siz, recurs, startx, starty, starthead){
+        if (recurs == 0){
+            line(startx, starty, startx+(Math.sin(starthead)*siz), starty-(Math.cos(starthead)*siz))
+        }
+        else{
+            koch(siz/3, recurs-1, startx, starty, starthead)
+            koch(siz/3, recurs-1, startx+((siz/3)*Math.sin(starthead)), starty-((siz/3)*Math.cos(starthead)), starthead-(Math.PI/3))
+            koch(siz/3, recurs-1, startx+((siz/3)*Math.sqrt(3)*Math.sin(starthead-(Math.PI/6))), starty-((siz/3)*Math.sqrt(3)*Math.cos(starthead-(Math.PI/6))), starthead+(Math.PI/3))
+            koch(siz/3, recurs-1, startx+(((2*siz)/3)*Math.sin(starthead)), starty-(((2*siz)/3)*Math.cos(starthead)), starthead)
+        }
+    }
+    
+    function kochflake(siz, recurs, startx, starty){
+        koch(siz, recurs, startx, starty, Math.PI/6)
+        koch(siz, recurs, startx+siz, starty, -Math.PI/2)
+        koch(siz, recurs, startx+(siz/2), starty-((siz/2)*Math.sqrt(3)), (5*Math.PI)/6)
+    }
+    
+    iterval = 7
+    function draw(){
+        contain.innerHTML = ""
+        sierpinski(30, iterval, 50, 50)
+        kochflake(30, iterval, 150, 50)
+    }
+    
+    
+    window.addEventListener("DOMContentLoaded", () => {
+    stats = document.getElementById("statdis")
+    document.getElementById("plusbtn").addEventListener("click", (e) => {
+        iterval += 1
+        stats.textContent = "S=" + iterval
+        draw()
+    })
+    
+    document.getElementById("minbtn").addEventListener("click", (e) => {
+        if (iterval > 0){
+            iterval -= 1
+            stats.textContent = "S=" + iterval
+            draw()
+        }
+    })
+
+    draw()
+    
+    })
+    
+    
+    // ]]>
+ </script>
+</svg>

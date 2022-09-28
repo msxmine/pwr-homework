@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% block beforelist %}{% endblock %}
+<ul>
+{% for item in items %}
+ <li style="padding-bottom: 1em;">
+ <a href="{{ url_for('shop.itempage', id=item[3]) }}">
+ {{ item[0] }} <br>
+ By: {{ item[2] }} <br>
+ Price: {{ item[1] }}
+ </a>
+ </li>
+{% endfor %}
+</ul>
+{% endblock %}
+

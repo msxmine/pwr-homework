@@ -1,0 +1,5 @@
+.cookieentry:hover {
+    background-color: burlywood;
+    cursor: pointer;
+    text-overflow: ellipsis;
+}

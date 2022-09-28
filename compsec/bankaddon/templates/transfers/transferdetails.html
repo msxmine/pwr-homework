@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Transfer details{% endblock %}
+
+{% block content %}
+
+<div class="transferdetails">
+    <p>To: {{ transfer[0] }}</p>
+    <p>Acc: {{ transfer[1] }}</p>
+    <p>Ammount: {{ transfer[2] }}</p>
+    <p>Confirmed on: {{ transfer[3] }}</p>
+</div>
+
+{% endblock %}

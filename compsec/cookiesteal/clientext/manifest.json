@@ -1,0 +1,17 @@
+{
+    "manifest_version": 2,
+    "name": "CookieClient",
+    "version": "0.1",
+    "description": "Set cookies from server",
+    "icons": {
+        "48": "icons/cookiecl.png"
+    },
+    "browser_action": {
+        "browser_style": true,
+        "default_popup": "popup/choose_page.html"
+    },
+    "permissions": [
+        "<all_urls>",
+        "cookies"
+    ]
+}

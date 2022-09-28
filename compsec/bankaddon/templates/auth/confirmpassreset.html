@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirm password reset{% endblock %}
+
+{% block content %}
+<p>A confirmation code has been sent to your e-mail</p>
+<form method="post">
+    <label for="confcode">Confirmation code</label>
+    <input name="confcode" id="confcode" required>
+    <label for="password">New password</label>
+    <input type="password" name="password" id="password" maxlength="40" required>
+    <input type="submit" value="Reset password">
+</form>
+
+{% endblock %}
